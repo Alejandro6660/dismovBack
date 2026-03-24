@@ -1,0 +1,15 @@
+# version: '3.8'  <-- Se puede omitir en versiones modernas de Docker
+
+services:
+  db:
+    image: postgres:17 # Nota: La versión actual estable es la 15 o 16. La 18.3 aún no existe.
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    container_name: dismov_db
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
