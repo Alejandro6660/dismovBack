@@ -36,7 +36,7 @@ export class Interaccion {
 
   @OneToOne(() => EstatusInteraccion)
   @JoinColumn({ name: 'interaccionEstatusId' })
-  interaccionEstatus: EstatusInteraccion;
+  interaccionEstatus: EstatusInteraccion; // <--- Este es el nombre correcto
 
   @OneToOne(() => TipoInteraccion)
   @JoinColumn({ name: 'interaccionTipoId' })

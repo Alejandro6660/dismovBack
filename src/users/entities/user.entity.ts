@@ -46,7 +46,13 @@ export class User {
   @Column({
     type: 'varchar',
   })
-  Password: string;
+  PasswordHash: string;
+
+  @Column({
+    type: 'varchar',
+    nullable: true,
+  })
+  RefreshTokenHash: string;
 
   @Column({
     type: 'varchar',

@@ -5,9 +5,17 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  Index,
 } from 'typeorm';
 
+export enum EstadoVisita {
+  PENDIENTE = 'PENDIENTE',
+  CONFIRMADA = 'CONFIRMADA',
+}
+
 @Entity()
+@Index(['usuarioId', 'estado'])
+@Index(['fechaCreacion'])
 export class Visita {
   @PrimaryGeneratedColumn('increment', { type: 'bigint' })
   id: number;
@@ -16,39 +24,40 @@ export class Visita {
     type: 'varchar',
     length: 100,
   })
-  codigo: string;
-
-  @Column({
-    type: 'int',
-  })
-  consecutivo: number;
-
-  @Column({
-    type: 'varchar',
-    length: 100,
-    unique: true,
-  })
   nombreVisitante: string;
 
   @Column({
     type: 'varchar',
     length: 50,
   })
-  Telefono: string;
+  telefono: string;
 
-  @Column('boolean', { default: true })
-  EstaActivo: boolean;
+  @Column({
+    type: 'varchar',
+    length: 100,
+  })
+  email: string;
+
+  @Column({
+    type: 'enum',
+    enum: EstadoVisita,
+    default: EstadoVisita.PENDIENTE,
+  })
+  estado: EstadoVisita;
 
   @Column('boolean', { default: false })
   esFrecuente: boolean;
 
-  @Column('date', { default: () => 'CURRENT_TIMESTAMP' })
-  fechaIngreso: Date;
+  @Column('timestamp', { default: () => 'CURRENT_TIMESTAMP' })
+  fechaCreacion: Date;
 
-  @Column('date', { default: () => 'CURRENT_TIMESTAMP' })
-  fechaEgreso: Date;
+  @Column('timestamp', { nullable: true })
+  fechaConfirmacion: Date;
 
-  @ManyToOne(() => User, (user) => user.id)
-  @JoinColumn({ name: 'userId' })
+  @ManyToOne(() => User, (user) => user.visitas)
+  @JoinColumn({ name: 'usuarioId' })
   usuarioCreador: User;
+
+  @Column({ type: 'bigint', nullable: true })
+  usuarioId: number;
 }

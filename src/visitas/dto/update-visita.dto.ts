@@ -1,4 +1,7 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateVisitaDto } from './create-visita.dto';
+import { IsOptional, IsBoolean } from 'class-validator';
 
-export class UpdateVisitaDto extends PartialType(CreateVisitaDto) {}
+export class UpdateVisitaDto {
+  @IsOptional()
+  @IsBoolean({ message: 'esFrecuente debe ser un valor booleano' })
+  esFrecuente?: boolean;
+}

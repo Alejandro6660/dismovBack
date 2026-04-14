@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 import { EncuestasModule } from './encuestas/encuestas.module';
 import { OrdenCompraModule } from './orden-compra/orden-compra.module';
 import { InteraccionesModule } from './interacciones/interacciones.module';
@@ -26,6 +27,7 @@ import { ComentariosModule } from './comentarios/comentarios.module';
       autoLoadEntities: true,
     }),
     UsersModule,
+    AuthModule,
     EncuestasModule,
     OrdenCompraModule,
     InteraccionesModule,

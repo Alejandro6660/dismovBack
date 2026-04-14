@@ -23,7 +23,7 @@ export class UsersController {
   async create(@Body() createUserDto: CreateUserDto) {
     try {
       return await this.usersService.RegistrarUsuario(createUserDto);
-    } catch (error) {
+    } catch (error: any) {
       this.logger.error('Error al registrar el usuario', error.stack);
 
       // 👇 Nest maneja el HTTP status
@@ -33,8 +33,8 @@ export class UsersController {
     }
   }
 
-  @Get()
-  findAll() {
+  @Get('ObtenerUsuarios')
+  async findAll() {
     return this.usersService.findAll();
   }
 
